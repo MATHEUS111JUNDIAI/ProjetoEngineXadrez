@@ -1,3 +1,5 @@
+[![Status do Projeto](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)](https://github.com/matheus-silva/my-chess-ai)
+
 # Engine de Análise de Xadrez em Python
 
 ## 📖 Descrição
