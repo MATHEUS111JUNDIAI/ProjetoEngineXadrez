@@ -13,10 +13,10 @@ def get_advantage_bar(score):
 def plot_evaluation(history, filename="grafico_avaliacao.png"):
     history_array = np.array(history)
     move_numbers = np.arange(len(history_array))
-    plt.style.use('seaborn-v0_8-whitegrid')
+    plt.style.use('ggplot')
     plt.figure(figsize=(14, 7))
-    plt.fill_between(move_numbers, history_array, 0, where=(history_array >= 0), facecolor='white', interpolate=True, alpha=0.8)
-    plt.fill_between(move_numbers, history_array, 0, where=(history_array <= 0), facecolor='black', interpolate=True, alpha=0.8)
+    plt.fill_between(move_numbers, history_array, 0, where=(history_array >= 0), facecolor='lightgray', interpolate=True)
+    plt.fill_between(move_numbers, history_array, 0, where=(history_array <= 0), facecolor='dimgray', interpolate=True)
     plt.plot(move_numbers, history_array, marker='', linestyle='-', color='royalblue', linewidth=2.5, label='Avaliação do Engine')
     plt.axhline(0, color='black', linewidth=1.0, linestyle='--')
     plt.title('Gráfico de Vantagem da Partida', fontsize=18, fontweight='bold')
