@@ -1,0 +1,47 @@
+# Lista de Melhorias Futuras para a Engine de Xadrez
+
+Esta é uma lista de possíveis melhorias para a engine, que podem ser implementadas para aumentar sua força de jogo, desempenho e usabilidade.
+
+## Melhorias na Força de Jogo
+
+1.  **Busca de Quiescência (Quiescence Search):**
+    *   **O que é:** Uma extensão da busca Minimax que continua a explorar lances "não tranquilos" (como capturas, promoções e cheques) além da profundidade de busca normal.
+    *   **Por que é importante:** Evita que a engine cometa erros táticos por encerrar a análise em meio a uma sequência de capturas. Por exemplo, a engine pode avaliar uma posição como boa, sem perceber que na próxima jogada o oponente pode capturar uma peça valiosa.
+
+2.  **Tabela de Transposição (Transposition Table):**
+    *   **O que é:** Uma "memória" (geralmente um hash map) que armazena as avaliações de posições já calculadas.
+    *   **Por que é importante:** Se a mesma posição no tabuleiro for alcançada através de diferentes sequências de lances, a engine pode reutilizar a avaliação armazenada em vez de recalculá-la. Isso economiza um tempo de processamento imenso e permite que a engine use esse tempo para buscar mais profundamente em outras linhas.
+
+3.  **Ordenação de Lances (Move Ordering):**
+    *   **O que é:** Uma técnica para explorar os lances mais promissores primeiro em cada nó da árvore de busca.
+    *   **Por que é importante:** Melhora drasticamente a eficiência da poda Alfa-Beta. Se a engine analisar o melhor lance primeiro, ela pode "podar" mais galhos da árvore de busca, permitindo que ela atinja uma profundidade maior no mesmo tempo.
+
+4.  **Avaliação Aprimorada (Improved Evaluation):**
+    *   **O que é:** Refinar a função `evaluate_board` para considerar mais aspectos estratégicos do xadrez.
+    *   **Exemplos:**
+        *   **Segurança do Rei:** Penalizar posições onde o rei está exposto.
+        *   **Estrutura de Peões:** Recompensar peões passados, conectados e penalizar peões dobrados ou isolados.
+        *   **Peças Ativas:** Bonificar peças que controlam o centro ou que têm muita mobilidade.
+
+## Melhorias na Interface e Usabilidade (GUI)
+
+1.  **Promoção de Peão Configurável:**
+    *   Permitir que o jogador escolha para qual peça promover um peão (Rainha, Torre, Bispo ou Cavalo) em vez de promover automaticamente para uma Rainha.
+
+2.  **Histórico de Lances Visível:**
+    *   Exibir uma lista dos lances jogados na partida na tela da GUI.
+
+3.  **Botões de Controle:**
+    *   Adicionar botões para "Novo Jogo", "Desfazer Lance" e "Sair".
+
+4.  **Feedback Visual Aprimorado:**
+    *   Destacar os lances legais quando uma peça é selecionada.
+    *   Exibir a peça capturada mais recentemente.
+
+## Outras Melhorias
+
+1.  **Otimização de Parâmetros:**
+    *   Usar técnicas de aprendizado de máquina (como algoritmos genéticos) para ajustar automaticamente os pesos nas tabelas de avaliação de peças (PSTs) e outros parâmetros da engine.
+
+2.  **Testes Unitários:**
+    *   Criar um conjunto de testes para garantir que as mudanças futuras não quebrem a lógica existente.

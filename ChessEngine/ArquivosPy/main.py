@@ -1,9 +1,10 @@
 import chess
 import chess.pgn
-from engine import find_best_move, evaluate_board
+from engine import Engine
 from visualizer import get_advantage_bar, plot_evaluation
 
 def analisar_partida(pgn_file, search_depth):
+    engine = Engine()
     eval_history = [0.0]
     with open(pgn_file) as pgn:
         try:
@@ -29,7 +30,7 @@ def analisar_partida(pgn_file, search_depth):
         print(f"Lance jogado: {board.san(move)}")
         board.push(move)
         
-        score = evaluate_board(board)
+        score = engine.evaluate_board(board)
         eval_history.append(score)
         bar = get_advantage_bar(score)
         print(f"Avaliação do engine: {score:.2f} {bar}")
@@ -39,7 +40,7 @@ def analisar_partida(pgn_file, search_depth):
             break
         
         print("Engine pensando...")
-        engine_move = find_best_move(board, search_depth)
+        engine_move = engine.find_best_move(board, search_depth)
         print(f"Engine recomendaria: {board.san(engine_move)}")
         print("-----------------------------------")
     
