@@ -1,12 +1,13 @@
 # gui.py
 import pygame
 import chess
+import chess.pgn
 import os
 
 # Importamos a classe Engine
 from engine import Engine
 
-# --- CONFIGURAÇÕES GERAIS ---
+#  CONFIGURAÇÕES GERAIS 
 WIDTH = 800
 HEIGHT = 800
 SQUARE_SIZE = WIDTH // 8
@@ -149,6 +150,27 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_s and not game_over:
+                    game = chess.pgn.Game()
+                    game.headers["Event"] = "Partida Casual"
+                    game.headers["Site"] = "Local"
+                    game.headers["Date"] = "????.??.??"
+                    game.headers["Round"] = "?"
+                    game.headers["White"] = "Jogador Humano" if player_turn == chess.WHITE else "Engine"
+                    game.headers["Black"] = "Jogador Humano" if player_turn == chess.BLACK else "Engine"
+                    game.headers["Result"] = board.result()
+
+                    node = game
+                    for move in board.move_stack:
+                        node = node.add_variation(move)
+
+                    save_path = os.path.join(os.path.dirname(__file__), '..', '..', 'partida_salva.pgn')
+                    with open(save_path, "w", encoding="utf-8") as pgn_file:
+                        exporter = chess.pgn.FileExporter(pgn_file)
+                        game.accept(exporter)
+                    print("Partida salva em partida_salva.pgn")
             
             if event.type == pygame.MOUSEBUTTONDOWN and is_human_turn and not game_over:
                 location = pygame.mouse.get_pos()
